@@ -1,0 +1,7 @@
+<div class="text-center">
+    <h1 id="list-header">List of Available Videos</h1>
+    <h3 id="request-confirm" ng-show="Auth.loggedin() && !Auth.confirmed()">Please confirm your email ID!</h3>
+    <h3 id="request-subscribe" ng-show="Auth.confirmed() && !Auth.subscribed()">You need a valid subscription to watch videos!</h3>
+    <div class="row-xs-12" style="height:10px;"></div>
+    <div ui-grid="gridOptions" width="500px" height="250px"></div>
+</div>

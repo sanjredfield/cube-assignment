@@ -1,0 +1,49 @@
+<div class="text-center">
+    <form class="form-horizontal" ng-submit="create()">
+    <fieldset>
+    <!-- Form Name -->
+    <legend>Sign up for an account</legend>
+
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="username">Username</label>
+      <div class="col-md-4">
+      <input id="username" name="username" ng-model="username" type="text" class="form-control input-md" required="">
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="email">Email</label>
+      <div class="col-md-4">
+      <input id="email" name="email" ng-model="email" type="email" class="form-control input-md" required="">
+      </div>
+    </div>
+
+    <!-- Password input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="password">Password</label>
+      <div class="col-md-4">
+        <input id="password" name="password" type="password" ng-model="password" class="form-control input-md" required="">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="password2">Retype Password</label>
+      <div class="col-md-4">
+        <input id="password2" name="password2" type="password" ng-model="password2" class="form-control input-md" required="">
+      </div>
+    </div>
+
+    <p ng-show="result">{{ result }}</p>
+
+    <!-- Button -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="submit"></label>
+      <div class="col-md-4">
+        <input type="submit" id="submit" class="btn btn-primary"></input>
+      </div>
+    </div>
+
+    </fieldset>
+    </form></div>

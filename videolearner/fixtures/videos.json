@@ -1,0 +1,72 @@
+[
+  {
+    "model": "videolearner.Video",
+    "pk": 1,
+    "fields": {
+      "name": "Even Better than the Real Thing",
+      "youtube_id": "Yrch66gdjjk",
+      "credits": 100,
+      "description": "Music Video"
+    }
+  },
+  {
+    "model": "videolearner.Video",
+    "pk": 2,
+    "fields": {
+      "name": "Dreams",
+      "youtube_id": "mrZRURcb1cM",
+      "credits": 100,
+      "description": "Music Video"
+    }
+  },
+  {
+    "model": "videolearner.Video",
+    "pk": 3,
+    "fields": {
+      "name": "Afterlife",
+      "youtube_id": "EcKinnMXuKg",
+      "credits": 100,
+      "description": "Music Video"
+    }
+  },
+  {
+    "model": "videolearner.Video",
+    "pk": 4,
+    "fields": {
+      "name": "Lullaby",
+      "youtube_id": "ijxk-fgcg7c",
+      "credits": 100,
+      "description": "Music Video"
+    }
+  },
+  {
+    "model": "videolearner.Video",
+    "pk": 5,
+    "fields": {
+      "name": "Rock the Casbah",
+      "youtube_id": "bJ9r8LMU9bQ",
+      "credits": 100,
+      "description": "Music Video"
+    }
+  },
+  {
+    "model": "videolearner.Video",
+    "pk": 6,
+    "fields": {
+      "name": "Space Oddity",
+      "youtube_id": "iYYRH4apXDo",
+      "credits": 100,
+      "description": "Music Video"
+    }
+  },
+  {
+    "model": "videolearner.Video",
+    "pk": 7,
+    "fields": {
+      "name": "Rocket Man",
+      "youtube_id": "1GAKOLOnfV4",
+      "credits": 100,
+      "description": "Music Video"
+    }
+  }
+]

@@ -1,0 +1,12 @@
+[
+  {
+    "model": "videolearner.SubscriptionType",
+    "pk": 1,
+    "fields": {
+      "active": true,
+      "duration": 1,
+      "description": "Monthly",
+      "price_per_month": 500
+    }
+  }
+]

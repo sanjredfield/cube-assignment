@@ -1,0 +1,23 @@
+[
+{
+    "model": "videolearner.userprofile",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$24000$PXSDGp7B4luN$SGV51FJd25NZO4659cLw6KNXSbiJfeUl3Nm5ve+PCZY=",
+        "last_login": "2016-08-23T20:34:57.310Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "sanj.redfield@gmail.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2016-08-19T09:42:59Z",
+        "email_confirmed": true,
+        "chain_address": "1ZB918wspepaBCq9WLJXkmcDtMEE1Ka9aK1exV",
+        "subscription": 1,
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]

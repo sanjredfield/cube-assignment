@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html data-ng-app="videosApp">
+<head>
+  <!-- SCROLLS -->
+  <!-- load bootstrap and fontawesome via CDN -->
+  <link rel="shortcut icon" type="image/png" href="{% static "favicon.ico" %}"/>
+  <link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap.min.css" %}" />
+  <link rel="stylesheet" href="{% static "bower_components/font-awesome/css/font-awesome.min.css" %}" />
+  <link rel="stylesheet" href="{% static "bower_components/angularjs-datetime-picker/angularjs-datetime-picker.css" %}" />
+  <link rel="stylesheet" href="{% static "bower_components/angular-ui-grid/ui-grid.min.css" %}"></link>
+  <!-- SPELLS -->
+  <!-- load angular and angular route via CDN -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
+  <script src="{% static "bower_components/bootstrap/dist/js/bootstrap.min.js" %}"></script>
+  <script src="{% static "bower_components/moment/min/moment.min.js" %}"></script>
+  <script src="{% static "bower_components/angular/angular.min.js" %}"></script>
+  <script src="{% static "bower_components/angular-route/angular-route.min.js" %}"></script>
+  <script src="{% static "bower_components/angular-resource/angular-resource.min.js" %}"></script>
+  <script src="{% static "bower_components/angular-ui-grid/ui-grid.min.js" %}"></script>
+  <script src="{% static "bower_components/angularjs-datetime-picker/angularjs-datetime-picker.min.js" %}"></script>
+  <script src="{% static "bower_components/angular-youtube-mb/dist/angular-youtube-embed.min.js" %}"></script>
+  <script src="{% static "videolearner/js/app.js" %}"></script>
+  <script src="{% static "videolearner/js/services.js" %}"></script>
+  <script src="{% static "videolearner/js/controllers.js" %}"></script>
+
+  <title>Cube Courseware</title>
+</head>
+<body>
+    <!-- HEADER AND NAVBAR -->
+    <header>
+        <nav class="navbar navbar-default" data-ng-controller="navController">
+        <div class="container">
+            <ul class="nav navbar-nav navbar-right ng-cloak">
+                <li><a href="#videos" id="list"><i class="fa fa-shield"></i> All Videos</a></li>
+                <li ng-if="Auth.loggedout()"><a href="#login" id="login"><i class="fa fa-shield"></i> Login</a></li>
+                <li ng-if="Auth.subscribed()"><a href="#myvideos" id="myvideos"><i class="fa fa-shield"></i> My Videos</a></li>
+                <li ng-if="Auth.subscribed()"><a href="#badges" id="badges"><i class="fa fa-shield"></i> My Badges</a></li>
+                <li ng-if="Auth.getSubscription()"><a href="#mysubscription" id="mysubscription"><i class="fa fa-shield"></i> My Subscription</a></li>
+                <li ng-if="Auth.confirmed() && !Auth.getSubscription()"><a href="#subscribe" id="badges"><i class="fa fa-shield"></i> Subscribe</a></li>
+                <li ng-if="Auth.loggedin()"><a href="" ng-click="logout();" id="logout"><i class="fa fa-shield"></i> Logout</a></li>
+            </ul>
+        </div>
+        </nav>
+    </header>
+
+    <div id="main">
+        <div ng-view></div>
+    </div>
+
+</body>
+</html>

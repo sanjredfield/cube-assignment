@@ -1,0 +1,29 @@
+[
+  {
+    "model": "videolearner.Badge",
+    "pk": 1,
+    "fields": {
+      "name": "Bronze",
+      "description": "A decent attempt.",
+      "credits_required": 200
+    }
+  },
+  {
+    "model": "videolearner.Badge",
+    "pk": 2,
+    "fields": {
+      "name": "Silver",
+      "description": "A good attempt.",
+      "credits_required": 300
+    }
+  },
+  {
+    "model": "videolearner.Badge",
+    "pk": 3,
+    "fields": {
+      "name": "Gold",
+      "description": "An excellent attempt.",
+      "credits_required": 400
+    }
+  }
+]

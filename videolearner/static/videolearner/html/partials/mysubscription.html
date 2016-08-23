@@ -1,0 +1,23 @@
+<div class="text-center">
+    <h3>Current Subscription Details</h3>
+    <div ng-if="subscription">
+        <br>Description: {{ subscription.subscription_type.description }}
+        <br>Price per month: {{ subscription.subscription_type.price_per_month }}
+        <br>Paid from: {{ subscription.paid_from }}
+        <br>Paid until: {{ subscription.paid_until }}
+        <br>
+        <div ng-show="{{!subscription.active && subscription.valid}}">
+        <br>You have canceled your subscription and it will not renew automatically, click <a href="/api/update_subscription/">here</a> to change this.
+        </div>
+        <div ng-show="{{subscription.active && !subscription.valid}}">
+        <br>Your last automatic payment failed, click <a href="/api/update_subscription/">here</a> to update your payment information.
+        </div>
+        <div ng-show="{{subscription.active}}">
+        <br>If you would like to cancel your subscription, click <a href="" ng-click="cancelSubscription()">here</a>.
+        <br>If you would like to update your payment details, click <a href="/api/update_subscription/">here</a>.
+        </div>
+    </div>
+    <div ng-if="!subscription">
+        <br>You do not yet have an active subscription, click <a href="/api/new_subscription/">here</a> to get one.
+    </div>
+</div>

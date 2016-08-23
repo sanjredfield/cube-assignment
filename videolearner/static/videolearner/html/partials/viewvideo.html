@@ -1,0 +1,11 @@
+<div class="text-center">
+    <div ng-if="!uservideo || !uservideo['active']">You are not subscribed to this video!</div>
+    <div ng-if="!uservideo || !uservideo['active']">You are not subscribed to this video!</div>
+    <div ng-if="!youtube_id">You must have a valid subscription to view videos!</div>
+
+    <div ng-if="uservideo['active'] && youtube_id">
+        <h3>{{ uservideo['video']['name']}}</h3>
+        <h5>{{ uservideo['video']['description']}}</h5>
+        <br><youtube-video video-id="youtube_id"></youtube-video><br>
+    </div>
+</div>
