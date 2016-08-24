@@ -50,7 +50,6 @@ class SubscriptionViews(object):
 
     accountant = Accountant()
     pg = PaymentAPI()
-    monthly_subscription = SubscriptionType.objects.get(duration=1)
 
     @method_decorator(ensure_csrf_cookie)
     @check_authenticated_and_confirmed
@@ -64,9 +63,9 @@ class SubscriptionViews(object):
         register_key = hash("Initial payment: " + str(request.user.id))
         cache.set(register_key, json.dumps(data), 3600)
 
+        monthly_subscription = SubscriptionType.objects.get(duration=1)
         pg_url = self.pg.create_recurring_payment(
-            self.monthly_subscription.total,
-            self.monthly_subscription.duration,
+            monthly_subscription.total, monthly_subscription.duration,
             '/api/payment_complete/%s/' % register_key,
             '/api/payment_fail/%s/' % register_key)
         return HttpResponseRedirect(pg_url)
@@ -89,9 +88,10 @@ class SubscriptionViews(object):
         # date of the recurring payment to be the end date of the subscription.
         # However, this requires complicating our pg interface, so we ignore
         # this (the pg is a dummy anyway).
+        monthly_subscription = SubscriptionType.objects.get(duration=1)
         if not subscription.active:
             pg_url = self.pg.create_recurring_payment(
-                self.monthly_subscription.total, self.monthly_subscription.duration,
+                monthly_subscription.total, monthly_subscription.duration,
                 '/api/payment_complete/%s/' % register_key,
                 '/api/payment_fail/%s/' % register_key)
         else:
@@ -118,13 +118,14 @@ class SubscriptionViews(object):
         data = json.loads(cache.get(key))
         cache.delete(key)
 
+        monthly_subscription = SubscriptionType.objects.get(duration=1)
         if 'subscription' in data:
             subscription = Subscription.objects.get(pk=data['subscription'])
             subscription.active = True
             self.accountant.update_subscription(subscription, payment_data)
         else:
             user = UserProfile.objects.get(pk=data['user'])
-            self.accountant.create_subscription(user, self.monthly_subscription, payment_data)
+            self.accountant.create_subscription(user, monthly_subscription, payment_data)
         return HttpResponseRedirect("/#/mysubscription")
 
     @wrap_payment_exception

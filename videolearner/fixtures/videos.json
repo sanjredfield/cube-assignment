@@ -6,7 +6,8 @@
       "name": "Even Better than the Real Thing",
       "youtube_id": "Yrch66gdjjk",
       "credits": 100,
-      "description": "Music Video"
+      "description": "Music Video",
+      "length": 300
     }
   },
   {
@@ -16,7 +17,8 @@
       "name": "Dreams",
       "youtube_id": "mrZRURcb1cM",
       "credits": 100,
-      "description": "Music Video"
+      "description": "Music Video",
+      "length": 300
     }
   },
   {
@@ -26,7 +28,8 @@
       "name": "Afterlife",
       "youtube_id": "EcKinnMXuKg",
       "credits": 100,
-      "description": "Music Video"
+      "description": "Music Video",
+      "length": 300
     }
   },
   {
@@ -36,7 +39,8 @@
       "name": "Lullaby",
       "youtube_id": "ijxk-fgcg7c",
       "credits": 100,
-      "description": "Music Video"
+      "description": "Music Video",
+      "length": 300
     }
   },
   {
@@ -46,7 +50,8 @@
       "name": "Rock the Casbah",
       "youtube_id": "bJ9r8LMU9bQ",
       "credits": 100,
-      "description": "Music Video"
+      "description": "Music Video",
+      "length": 300
     }
   },
   {
@@ -56,7 +61,8 @@
       "name": "Space Oddity",
       "youtube_id": "iYYRH4apXDo",
       "credits": 100,
-      "description": "Music Video"
+      "description": "Music Video",
+      "length": 300
     }
   },
   {
@@ -66,7 +72,8 @@
       "name": "Rocket Man",
       "youtube_id": "1GAKOLOnfV4",
       "credits": 100,
-      "description": "Music Video"
+      "description": "Music Video",
+      "length": 300
     }
   }
 ]

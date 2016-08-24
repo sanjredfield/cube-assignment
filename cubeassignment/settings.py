@@ -84,7 +84,7 @@ DATABASES = {
         'NAME': 'videosdb',
         'USER': 'videosdbuser',
         'PASSWORD': 'thesound',
-        'HOST': '127.0.0.1',
+        'HOST': 'video-postgres',
         'PORT': '5432',
     }
 }
@@ -159,7 +159,7 @@ STATICFILES_DIRS = (os.path.join('static'),)
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1",
+        "LOCATION": "redis://video-redis:6379/1",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
@@ -171,12 +171,12 @@ CACHES = {
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'admin@manjaywedding.com'
-EMAIL_HOST_PASSWORD = 'weddingsanisha'
+EMAIL_HOST_USER = 'sanjay.cubeassignment@gmail.com'
+EMAIL_HOST_PASSWORD = 'thesound'
 
 # CELERY SETTINGS
-BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+BROKER_URL = 'redis://video-redis:6379/0'
+CELERY_RESULT_BACKEND = 'redis://video-redis:6379/0'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
@@ -186,7 +186,7 @@ CELERY_TIMEZONE = TIME_ZONE
 
 MULTICHAIN_RPC_USER = 'multichainrpc'
 MULTICHAIN_RPC_PASSWORD = 'Abf3hPWHwV8A1x6WuWaLneMMJKutnhexzYx4Y4jhJ35Y'
-MULTICHAIN_RPC_HOST = 'localhost'
+MULTICHAIN_RPC_HOST = 'videochain-master'
 MULTICHAIN_RPC_PORT = '7326'
 MULTICHAIN_CHAINNAME = 'videochain'
 MULTICHAIN_ISSUEADDRESS = '1K5eYbwzbpqvmV4hguq2FxMifq54c7nT5WXuvV'
