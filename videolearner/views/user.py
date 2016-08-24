@@ -60,11 +60,13 @@ class UserSessionViews(object):
         if form.is_valid():
             chain_address = self.multichain_rpc.create_chain_address()
             form.cleaned_data['chain_address'] = chain_address
+
             UserProfile.objects.create_user(**form.cleaned_data)
             new_user = authenticate(**form.cleaned_data)
             login(request, new_user)
             send_registration_email.delay(form.cleaned_data['email'])
             return JsonResponse({'result': 'success'})
+
         form_errors = json.loads(form.errors.as_json())
         return JsonResponse({'result': 'failure', 'errors': form_errors})
 
@@ -84,7 +86,6 @@ class UserSessionViews(object):
 
     def confirm_email(self, request):
         try:
-            print request.GET.get('token')
             email = confirm_token(request.GET.get('token'))
         except:
             return HttpResponseBadRequest('Invalid confirmation token!')

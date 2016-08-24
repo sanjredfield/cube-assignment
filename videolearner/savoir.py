@@ -1,4 +1,5 @@
 # Code courtesy of: https://github.com/DXMarkets/Savoir
+# TODO: axe this and use bitcoinrpc instead
 
 import requests
 import json

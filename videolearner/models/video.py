@@ -8,8 +8,6 @@ from .user import UserProfile
 
 class Video(models.Model):
 
-    # we do not store the length, assumption is that it will not change
-
     name = models.CharField(max_length=100)
 
     youtube_id = models.CharField(unique=True, max_length=20)
@@ -18,7 +16,7 @@ class Video(models.Model):
 
     description = models.TextField()
 
-    length = models.IntegerField()  # length in seconds
+    length = models.IntegerField()  # length in seconds, TODO: get from youtube on video creation
 
     created_at = models.DateTimeField(default=timezone.now)
 
@@ -41,7 +39,7 @@ class UserVideo(models.Model):
 
     active = models.BooleanField(default=True)  # videos can be shelved
 
-    credits_awarded = models.IntegerField(default=0)
+    credits_awarded = models.IntegerField(default=0)  # kept in sync with multichain
 
     @property
     def percent_watched(self):

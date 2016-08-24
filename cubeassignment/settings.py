@@ -193,3 +193,52 @@ MULTICHAIN_ISSUEADDRESS = '1K5eYbwzbpqvmV4hguq2FxMifq54c7nT5WXuvV'
 MULTICHAIN_ASSETNAME = 'video-credits'
 MULTICHAIN_ISSUEQTY = 100000
 MULTICHAIN_WAITTIME = 30  # Time to wait before a transaction will be confirmed
+
+# LOGGERS
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'django-log-file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/root/logs/video-app/debug.log',
+            'formatter': 'verbose'
+        },
+        'tasks-log-file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/root/logs/video-app/tasks.log',
+            'formatter': 'verbose'
+        },
+        'savoir-log-file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/root/logs/video-app/savoir.log',
+            'formatter': 'verbose'
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['django-log-file'],
+            'level': 'WARNING',
+            'propagate': True,
+        },
+        'Savoir': {
+            'handlers': ['savoir-log-file'],
+            'level': 'WARNING',
+            'propagate': True,
+        },
+        'Tasks': {
+            'handlers': ['tasks-log-file'],
+            'level': 'WARNING',
+            'propagate': True,
+        },
+    },
+    'formatters': {
+        'verbose': {
+            "format": "%(levelname)s %(asctime)s %(module)s: %(message)s",
+        },
+    },
+}

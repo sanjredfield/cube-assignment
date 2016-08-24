@@ -12,11 +12,10 @@ class UserProfile(AbstractUser):
 
     email_confirmed = models.BooleanField(default=False)
 
-    chain_address = models.CharField(max_length=100, null=True)
+    chain_address = models.CharField(max_length=100)
 
-    # We allow for a user that is not yet subscribed, or has canceled subscr.
-    subscription = models.OneToOneField(
-        Subscription, null=True, on_delete=models.SET_NULL)
+    # a null subscription means user has not subscribed yet
+    subscription = models.OneToOneField(Subscription, null=True, on_delete=models.SET_NULL)
 
     @property
     def valid_subscription(self):

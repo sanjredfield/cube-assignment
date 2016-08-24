@@ -30,6 +30,7 @@ class FullVideoSerializer(serializers.HyperlinkedModelSerializer):
             return {
                 'id': uservideo.id,
                 'active': uservideo.active,
+                'credits_awarded': uservideo.credits_awarded,
                 'percent_watched': uservideo.percent_watched
             }
         except:
@@ -86,9 +87,6 @@ class UserVideoViewSet(viewsets.ModelViewSet):
         pk = self.request.query_params.get('id', None)
         if pk is not None:
             query = query.filter(id=pk)
-        video = self.request.query_params.get('video', None)
-        if video is not None:
-            query = query.filter(video=video)
         return query
 
     def perform_create(self, serializer):

@@ -97,22 +97,30 @@ videosApp.controller(
     $scope.Auth = Auth;
 
     console.log('loading listController');
-    var templateBegin = '<button ng-if="grid.appScope.Auth.subscribed() && !row.entity.user_added"';
-    var templateEnd = ' ng-click="grid.appScope.addVideo(row.entity)">Add</button>';
+    var templateBegin = '<button ng-if="!row.entity.user_added" ';
+    var templateEnd = 'ng-click="grid.appScope.addVideo(row.entity)">Add</button>';
     var cellTemplate = templateBegin + templateEnd;
+
+    var columnDefs = [
+      { field: 'created_at' },
+      { field: 'name' },
+      { field: 'description' },
+      { field: 'credits' },
+    ];
+    if (Auth.subscribed()) {
+      var columnDefsEnd = [
+        { field: 'percent_watched' },
+        { field: 'credits_awarded' },
+        { field: 'add_video', name: ' ', width: 50,
+          enableFiltering: false, enableSorting: false, cellTemplate: cellTemplate, }
+      ];
+      columnDefs = columnDefs.concat(columnDefsEnd);
+    }
 
     $scope.gridOptions = {
       enableSorting: true,
       enableFiltering: true,
-      columnDefs: [
-        { field: 'created_at' },
-        { field: 'name' },
-        { field: 'description' },
-        { field: 'credits' },
-        { field: 'percent_watched' },
-        { field: 'add_video', name: ' ', width: 50,
-          enableFiltering: false, enableSorting: false, cellTemplate: cellTemplate, },
-      ],
+      columnDefs: columnDefs,
     };
 
     $scope.gridOptions.onRegisterApi = function (gridApi) {
@@ -127,6 +135,7 @@ videosApp.controller(
         $scope.gridOptions.data[i].created_at = createdAt.format('YYYY-MM-DD HH:mm');
         var userVideo = $scope.gridOptions.data[i].user_video;
         $scope.gridOptions.data[i].percent_watched = userVideo ? userVideo.percent_watched : 0;
+        $scope.gridOptions.data[i].credits_awarded = userVideo ? userVideo.credits_awarded : 0;
         $scope.gridOptions.data[i].user_added = userVideo ? userVideo.active : false;
       }
     };
@@ -176,7 +185,8 @@ videosApp.controller(
         { field: 'video.name', name: 'Name' },
         { field: 'video.description', name: 'Description' },
         { field: 'video.credits', name: 'Credits' },
-        { field: 'percent_watched', name: 'Percent Watched' },
+        { field: 'percent_watched' },
+        { field: 'credits_awarded' },
         { field: 'watch', name: ' ', width: 50,
           enableFiltering: false, enableSorting: false, cellTemplate: watchCellTemplate, },
         { field: 'remove', name: '  ', width: 80,
@@ -218,6 +228,7 @@ videosApp.controller(
 
     $scope.uservideo = uservideoData[0];
     $scope.youtube_id = $scope.uservideo.video.youtube_id;
+    $scope.checkLengthScheduled = false;
 
     $scope.$on('youtube.player.playing', function ($event, player) {
       var checkLengthPlayed = function () {
@@ -229,10 +240,15 @@ videosApp.controller(
 
         if (player.getPlayerState() == 1) {
           setTimeout(checkLengthPlayed, 10 * 1000);
+        } else {
+          $scope.checkLengthScheduled = false;
         }
       };
 
-      setTimeout(checkLengthPlayed, 10 * 1000);
+      if (!$scope.checkLengthScheduled) {
+        $scope.checkLengthScheduled = true;
+        setTimeout(checkLengthPlayed, 10 * 1000);
+      }
     });
   }
 );
@@ -244,7 +260,7 @@ videosApp.controller(
       enableSorting: false,
       enableFiltering: false,
       columnDefs: [
-        { field: 'month_awarded' },
+        { field: 'award_month' },
         { field: 'badge.name', name: 'Name' },
         { field: 'badge.description', name: 'Description' },
         { field: 'badge.credits_required', name: 'Credits Required' },

@@ -12,6 +12,7 @@ from ..models import SubscriptionType, Subscription, UserProfile
 from ..stubs.paymentapi import PaymentAPI, PaymentException
 
 
+# TODO: we need to create the paymentexception partial template
 def wrap_payment_exception(func):
     def func_wrapper(*args, **kwargs):
         try:
@@ -105,12 +106,13 @@ class SubscriptionViews(object):
     @check_authenticated_and_confirmed
     @wrap_payment_exception
     def cancel_subscription(self, request):
-        if not request.user.subscription:
+        if not request.user.subscription or not request.user.subscription.active:
             return HttpResponseRedirect("/")
 
         self.accountant.cancel_subscription(request.user.subscription)
         return JsonResponse({'result': 'success'})
 
+    # End point for return from payment gateway
     @wrap_payment_exception
     def payment_complete(self, request, key):
         pg_token = request.GET.get('TOKEN', None)
@@ -128,6 +130,7 @@ class SubscriptionViews(object):
             self.accountant.create_subscription(user, monthly_subscription, payment_data)
         return HttpResponseRedirect("/#/mysubscription")
 
+    # End point for return from payment gateway
     @wrap_payment_exception
     def payment_update_complete(self, request, key):
         pg_token = request.GET.get('TOKEN', None)
@@ -139,7 +142,9 @@ class SubscriptionViews(object):
         self.accountant.update_subscription(subscription, payment_data)
         return HttpResponseRedirect("/#/mysubscription")
 
-    # TODO: need to add an angular template for this
+
+    # End point for return from payment gateway
+    # TODO: need to add the partial template for this
     @wrap_payment_exception
     def payment_fail(self, request, key):
         cache.delete(key)

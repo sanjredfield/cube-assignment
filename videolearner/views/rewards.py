@@ -20,7 +20,7 @@ class UserBadgeSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = UserBadge
-        fields = ('url', 'user', 'badge', 'month_awarded')
+        fields = ('url', 'user', 'badge', 'award_month')
 
 
 class BadgeViewSet(mixins.RetrieveModelMixin,

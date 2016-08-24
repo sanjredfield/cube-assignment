@@ -12,8 +12,7 @@ class SubscriptionType(models.Model):
 
     active = models.BooleanField(default=True)
 
-    # length of the subscription in months
-    duration = models.IntegerField()
+    duration = models.IntegerField()  # number of months between payments
 
     description = models.CharField(max_length=50)
 
@@ -34,16 +33,16 @@ class Subscription(models.Model):
 
     created_at = models.DateTimeField(default=timezone.now)
 
-    active = models.BooleanField(default=True)
+    active = models.BooleanField(default=True)  # gets set to False when user cancels subscription
 
     paid_from = models.DateTimeField()
 
     paid_until = models.DateTimeField()
 
-    payment_data = JSONField()
+    payment_data = JSONField()  # PG specific data
 
     @property
     def valid(self):
-        # One day grace period while we check if the subscription was renewed
+        # One day grace, as the script to check payment may run later in the day than paid_until
         one_day = dateutil.relativedelta.relativedelta(days=1)
         return self.paid_until + one_day > timezone.now()

@@ -22,18 +22,16 @@ class Badge(models.Model):
 
 
 class UserBadge(models.Model):
+    class Meta:
+        unique_together = ('user', 'award_month')  # only one badge per month
 
     user = models.ForeignKey(UserProfile)
 
     badge = models.ForeignKey(Badge)
 
-    awarded_at = models.DateTimeField(default=timezone.now)
+    created_at = models.DateTimeField(default=timezone.now)
 
-    @property
-    def month_awarded(self):
-        awarded_at = timezone.localtime(self.awarded_at)
-        prev_mth = awarded_at + dateutil.relativedelta.relativedelta(months=-1)
-        return prev_mth.strftime('%B')
+    award_month = models.CharField(max_length=30)
 
     def __str__(self):
         args = (self.user, self.badge, self.awarded_at)

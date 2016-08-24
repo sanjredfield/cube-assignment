@@ -38,7 +38,7 @@ def send_registration_email(email):
     return 'Registration email sent to: %s ' % email
 
 
-# @periodic_task(run_every=(crontab(minute=0, hour=0)))
+@periodic_task(run_every=(crontab(minute=0, hour=0)))
 def check_subscriptions_renewed():
     accountant = Accountant()
     users = UserProfile.objects.all()
@@ -46,7 +46,10 @@ def check_subscriptions_renewed():
         if user.subscription and user.subscription.active:
             paid_until = user.subscription.paid_until
             if paid_until < timezone.now():
-                accountant.update_subscription(user.subscription)
+                try:
+                    accountant.update_subscription(user.subscription)
+                except Exception as e:
+                    log.error('Failed to update subscription for user %s, error: %s' % (user, e))
 
 
 @periodic_task(run_every=(crontab(minute=0, hour=0, day_of_month='1')))
@@ -62,16 +65,17 @@ def assign_badges():
     users = UserProfile.objects.all()
 
     # we need to assign a badge for lapsed / inactive subscriptions too, in
-    # case the user earned points in this month before the subscription lapsed.
+    # case the user earned points in this month before the subscription lapsed. That way, they
+    # will see the correct badge once the subscription is renewed successfully.
     for user in users:
         try:
             chain_addr = user.chain_address
             total_credits = multichain_rpc.get_credits(
                 chain_addr, begin, end)
-            # TODO: prevent the badge being given twice if task is rerun
             for badge in badges:
                 if badge.credits_required <= total_credits:
-                    UserBadge.objects.create(user=user, badge=badge)
+                    award_month = prev_mth.strftime('%B %Y')
+                    UserBadge.objects.create(user=user, badge=badge, award_month=award_month)
                     break
         except Exception as e:
             args = (user, e)

@@ -7,6 +7,7 @@ from .stubs.paymentapi import PaymentAPI
 
 
 class Accountant:
+    """ Class for managing new subscriptions, renewals, and cancellations. """
 
     def __init__(self):
         self.pg = PaymentAPI()
