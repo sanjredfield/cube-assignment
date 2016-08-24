@@ -1,0 +1,30 @@
+version: "2"
+services:
+  video-postgres:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=thesound
+      - POSTGRES_USER=videosdbuser
+      - POSTGRES_DB=videosdb
+  video-redis:
+    image: redis
+  videochain-master:
+    image: sanjredfield/videochain-master
+    command: multichaind videochain
+  videochain-node:
+    image: sanjredfield/videochain-node
+    command: multichaind videochain
+  video-app:
+    image: sanjredfield/video-app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - video-postgres
+      - video-redis
+      - videochain-master
+      - videochain-node
+  video-celery:
+    image: sanjredfield/video-app
+    command: /bin/bash celery-entrypoint.sh
+    depends_on:
+      - video-app
