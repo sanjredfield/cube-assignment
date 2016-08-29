@@ -89,21 +89,19 @@ class UserVideoViewSet(viewsets.ModelViewSet):
             query = query.filter(id=pk)
         return query
 
-    def perform_create(self, serializer):
+    def verify_owner_and_subscribed(self, serializer):
         curr_user_id = serializer.validated_data['user'].id
         if curr_user_id != self.request.user.id:
             raise exceptions.PermissionDenied(self.wrong_user_msg)
         if not self.request.user.valid_subscription:
             raise exceptions.PermissionDenied(self.subscribe_error_msg)
+
+    def perform_create(self, serializer):
+        self.verify_owner_and_subscribed(serializer)
         serializer.save()
 
     def perform_update(self, serializer):
-        curr_user_id = serializer.validated_data['user'].id
-        if curr_user_id != self.request.user.id:
-            raise exceptions.PermissionDenied(self.wrong_user_msg)
-        if not self.request.user.valid_subscription:
-            raise exceptions.PermissionDenied(self.subscribe_error_msg)
-
+        self.verify_owner_and_subscribed(serializer)
         uservideo = serializer.instance
         new_length_watched = serializer.validated_data['length_watched']
         if (uservideo.should_update_credits(new_length_watched)):

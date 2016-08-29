@@ -1,7 +1,7 @@
 cube-assignment
 =======
 
-## An video learning app.
+## A video learning app.
 
 #### To start server
 ##### Requirement: docker installed and running
