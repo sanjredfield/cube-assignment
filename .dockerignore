@@ -1,0 +1,13 @@
+*.py[cod]
+
+# Really irritating Mas OS X stuff:
+*.DS_Store
+
+# Installer logs
+pip-log.txt
+
+# virtualenv
+env/
+
+# local node modules
+node_modules/
